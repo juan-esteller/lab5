@@ -76,6 +76,7 @@ void fac_store_word(fully_associative_cache* fac, void* addr, unsigned int val) 
     fac->cs.w_queries++; 
     int way; 
     fac->cs.w_misses += load_fac_cache(fac, addr, &way);
+    fac->dirty_bits[way] = 1; 
     mark_as_used(fac, way); 
     uintptr_t block_start = (uintptr_t) addr - 
                                 (((uintptr_t) addr) % MAIN_MEMORY_BLOCK_SIZE);
