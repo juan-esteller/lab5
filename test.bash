@@ -4,7 +4,7 @@ function compare_results {
     TEST=`basename $2 .test`
     ./main $CACHE "tests/$TEST.test" > result.txt 
 
-    if diff result.txt "tests/results_$CACHE/$TEST.txt"; 
+    if diff result.txt "tests/results_$CACHE/$TEST.txt" > /dev/null; 
     then
         echo "Passed test $TEST with cache $CACHE"
     else 

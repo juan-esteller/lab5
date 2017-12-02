@@ -32,11 +32,11 @@ static inline int addr_to_set(void* addr)
     return (((uintptr_t) block_start / MAIN_MEMORY_BLOCK_SIZE) & ((1 << DIRECT_MAPPED_NUM_SETS_LN) - 1));
 }
 
-// load_cache
+// load_dmc_cache
 //      Guarantees that the address `addr` is in cache 
 //      `dmc`. Returns 1 in the case of a miss, 0 in a 
 //       hit.
-int load_cache(direct_mapped_cache* dmc, void* addr) {
+int load_dmc_cache(direct_mapped_cache* dmc, void* addr) {
     uintptr_t start_addr = addr_block_start(addr); 
     int set = addr_to_set(addr); 
     assert(set < DIRECT_MAPPED_NUM_SETS);
@@ -66,7 +66,7 @@ void dmc_store_word(direct_mapped_cache* dmc, void* addr, unsigned int val)
     int set = addr_to_set(addr);
     size_t start_addr = addr_block_start(addr);
     assert(set < DIRECT_MAPPED_NUM_SETS); 
-    dmc->cs.w_misses += load_cache(dmc, addr);
+    dmc->cs.w_misses += load_dmc_cache(dmc, addr);
     size_t offset = (uintptr_t) addr - start_addr; 
 
     dmc->dirty_bits[set] = 1; 
@@ -80,7 +80,7 @@ unsigned int dmc_load_word(direct_mapped_cache* dmc, void* addr)
     assert(set < DIRECT_MAPPED_NUM_SETS); 
 
     size_t start_addr = addr_block_start(addr);
-    dmc->cs.r_misses += load_cache(dmc, addr);
+    dmc->cs.r_misses += load_dmc_cache(dmc, addr);
     size_t offset = (uintptr_t) addr - start_addr; 
     return *((unsigned int*) (dmc->mem_blocks[set]->data + offset));
 }
