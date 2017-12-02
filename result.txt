@@ -1,0 +1,32 @@
+Initializing cache, start of main memory 0x12e3490
+start_addr: (nil)
+Copying data from source 0x12e3490
+Start of main memory: 0x12e3490
+MM: Read 32 bytes at (nil).
+Read from 0x4: 1299327045
+
+Copying data from source 0x12e34f0
+Start of main memory: 0x12e3490
+MM: Read 32 bytes at 0x60.
+Read from 0x64: -2090606193
+
+Wrote to 0x64: -4
+
+MM: Wrote 32 bytes at 0x60.
+Copying data from source 0x12e3490
+Start of main memory: 0x12e3490
+MM: Read 32 bytes at (nil).
+Read from 0x4: 1299327045
+
+Copying data from source 0x12e34f0
+Start of main memory: 0x12e3490
+MM: Read 32 bytes at 0x60.
+Read from 0x64: -4
+
+*******************************************
+Write Hit Rate:		-35% (-1120469608/-1120469608)
+Read Hit Rate:		100% (32739/32739)
+Total Hit Rate:		-35% (-1120436869/-1120436869)
+Writes to Main Memory:	1
+Reads from Main Memory:	4
+*******************************************
