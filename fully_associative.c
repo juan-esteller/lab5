@@ -97,5 +97,8 @@ unsigned int fac_load_word(fully_associative_cache* fac, void* addr) {
 }
 
 void fac_free(fully_associative_cache* fac) {
-    // TODO
+    for (int i = 0; i < fac->ways_full; i++) {
+        mb_free(fac->ways[i]);
+    }
+    free(fac);
 }
