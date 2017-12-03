@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h> 
 #include <assert.h> 
-#include <stdint.h> 
 
 typedef struct memory_block
 {

@@ -13,8 +13,10 @@ typedef struct set_associative_cache
 {
     main_memory* mm;
     cache_stats cs;
-    
-    // TODO: add anything you need
+    memory_block* sets[SET_ASSOCIATIVE_NUM_SETS][SET_ASSOCIATIVE_NUM_WAYS];
+    int way_places[SET_ASSOCIATIVE_NUM_SETS][SET_ASSOCIATIVE_NUM_WAYS]; 
+    int set_sizes[SET_ASSOCIATIVE_NUM_SETS];
+    int dirty_bits[SET_ASSOCIATIVE_NUM_SETS][SET_ASSOCIATIVE_NUM_WAYS];
 } set_associative_cache;
 
 // Do not edit below this line
