@@ -111,5 +111,10 @@ unsigned int sac_load_word(set_associative_cache* sac, void* addr) {
 }
 
 void sac_free(set_associative_cache* sac) {
-    // TODO
+    for (int i = 0; i < SET_ASSOCIATIVE_NUM_SETS; i++) {
+        for (int j = 0; j < sac->set_sizes[i]; j++) {
+            mb_free(sac->sets[i][j]); 
+        }
+    }
+    free(sac); 
 }
