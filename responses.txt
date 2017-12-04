@@ -1,0 +1,37 @@
+Q1: Why do we use the least significant bits when building a DMC’s address to set mapping rather than the most significant bits?
+
+A1: In the case that we are sequentially accessing through memory (which is a relatively common access pattern), we are modifying
+the least significant bits of the addresses that we are accessing. In the case we were mapping to a set by means of the most significant
+bits, they would not be changing during these accesses, so that we would constantly be mapping to the same set. This would result in a 
+lot of unnecessary ejections, so that in order to improve our hit rate and use the entire space of sets it is better to use the least significant
+bits. 
+
+Q2: t19.test accesses memory blocks with indexes separated by multiples of 16. It only accesses 16 distinct memory blocks. Which of the three 
+caches you built is worst at this test and why is it the worst? Which of the three caches you built is best at this test and why is it the best?
+
+A2: From actually running the tests, I see that the fully-associative cache has a total hit rate of 75 percent, whereas the directly mapped cache 
+has a hit rate of 3 percent (the set-associative cache is somewhere in between). I therefore conclude that the fully-associative cache
+performs best. This is likely the case since we are able to put any of the accesses in any one of the ways, and we end up using 16 different ways,
+so that we fil them up, and then only suffer cold misses. I similarly conclude that the directly-mapped cache performs worst. This is
+the case because all of the bits will map to the same set, so that they will be competing for the same set and hence cause our cache to thrash. 
+
+Q3: t20.test repeats through the same 17 memory blocks. Which of the three caches you built is worst at this test and why is it the worst? 
+Which of the three caches you built is best at this test and why is it the best? 
+
+A3: From running the tests, I find that I have 0 percent hit rate with the fully-associative cache. I think that this is likely the case since
+we are iterating through the blocks sequentially, and since we have one more block than the number of sets, under the LRU algorithm a block is ejected
+right before it is accessed again, so that we do not manage to achieve any hits. With the directly mapped cache, we achieve an intermediate hit rate
+of 20 percent, with likely the same phenomenon before, to an extent. Lastly, with the set-associative cache, we achieve the best  hit rate of of 
+45 percent. I figure that this is the case since we manage to avoid the disadvantages of the two previous cache types: we don't have to deal
+with blocks colliding with each other as frequently, since we have various ways for each set so that we are able to handle some set collisions, 
+but we do not have all of the accesses competing for the same set. a
+
+Q4: t21.test accesses memory blocks with indexes separated by multiples of 8. It repeats through the same three memory blocks. 
+Which of the three caches you built is worst at this test and why is it the worst? Which of the three caches you built is best at this test and 
+why is it the best?
+
+A4: The worst cache is the set-associative cache, which has a hit rate of 0 percent. I figure that this is the case since the addresses are 
+separated by a multiple of 8, so that they all map to the same set, and end up competing for the two different ways, but we have two blocks, so 
+that we manage to make the set corresponding to the addresses thrash under the LRU algorithm, as experienced in Q3 with the fully-associative cache.
+The best-performing cache is the fully-associative cache, which has a hit rate of 95 percent. It performs well since it is able to load the 
+addresses into 3 distinct ways, at which point it can achieve a hit on every access. 
